@@ -1,16 +1,31 @@
 import Index from '@/pages/frontend/index.vue'
+import Login from '@/pages/admin/login.vue'
+import AdminIndex from '@/pages/admin/index.vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Login  from '@/pages/admin/login.vue' 
+
 // 统一在这里声明所有路由
 const routes = [
-    // 省略...
+    {
+        path: '/', // 路由地址，首页
+        component: Index, // 对应组件
+        meta: { // meta 信息
+            title: 'Waylog 首页' // 页面标题
+        }
+    },
     {
         path: '/login', // 登录页
         component: Login,
         meta: {
-            title: 'Wayblog 登录页'
+            title: 'Waylog 登录页'
         }
     },
+    {
+        path: "/admin/index", // 后台首页
+        component: AdminIndex,
+        meta: {
+            title: 'Admin 后台首页'
+        }
+    }
 ]
 
 // 创建路由
@@ -21,5 +36,6 @@ const router = createRouter({
     routes, 
 })
 
-// ES6 模块导出语句，它用于将 router 对象导出，以便其他文件可以导入和使用这个对象
+// 暴露出去
 export default router
+
