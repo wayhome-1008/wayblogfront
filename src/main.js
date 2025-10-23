@@ -1,6 +1,6 @@
 import '@/assets/main.css'
 import 'animate.css';
-
+import 'nprogress/nprogress.css'
 import { createApp } from 'vue'
 import App from '@/App.vue'
 // 导入路由
