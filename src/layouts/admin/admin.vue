@@ -35,4 +35,10 @@ import AdminFooter from './components/AdminFooter.vue';
 import AdminHeader from './components/AdminHeader.vue';
 import AdminMenu from './components/AdminMenu.vue';
 import AdminTagList from './components/AdminTagList.vue';
+//初始化的骨架边距会有空白 Element Plus 组件样式导致的重写.el-header padding=0
 </script>
+<style scoped>
+.el-header {
+    padding: 0!important;
+}
+</style>
