@@ -2,9 +2,10 @@
     <!-- 左边：标签导航栏 -->
     <div class="fixed top-[64px] h-[44px] px-2 right-0 z-50 flex items-center bg-white transition-all duration-300 shadow"
         :style="{ left: menuStore.menuWidth }">
-        <el-tabs v-model="editableTabsValue" type="card" class="demo-tabs" closable @tab-remove="removeTab"
+        <el-tabs v-model="activeTab" type="card" class="demo-tabs" @tab-remove="removeTab" @tab-change="tabChange"
             style="min-width: 10px;">
-            <el-tab-pane v-for="item in editableTabs" :key="item.name" :label="item.title" :name="item.name">
+            <el-tab-pane v-for="item in tabList" :key="item.path" :label="item.title" :name="item.path"
+                :closable="item.path != '/admin/index'">
             </el-tab-pane>
         </el-tabs>
         <!-- 右侧下拉菜单 -->
@@ -31,64 +32,65 @@
 <script setup>
 import { ref } from 'vue'
 import { useMenuStore } from '@/stores/menu'
-
+import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router'
+const route = useRoute()
+const router = useRouter()
+// 标签页切换事件
+const tabChange = (path) => {
+     // 设置被激活的 Tab 标签
+    activeTab.value = path
+    // 路由跳转
+    router.push(path)
+}
+// 当前被选中的 tab
+const activeTab = ref(route.path)
 const menuStore = useMenuStore()
-let tabIndex = 2
-const editableTabsValue = ref('2')
-const editableTabs = ref([
+const tabList = ref([
     {
         title: '仪表盘',
-        name: '1',
-        content: 'Tab 1 content',
+        path: "/admin/index"
     },
     {
         title: '文章管理',
-        name: '2',
-        content: 'Tab 2 content',
+        path: "/admin/article/list"
     },
     {
         title: '分类管理',
-        name: '3',
-        content: 'Tab 1 content',
+        path: "/admin/category/list"
     },
     {
         title: '标签管理',
-        name: '4',
-        content: 'Tab 1 content',
+        path: "/admin/tag/list"
     },
     {
         title: '博客设置',
-        name: '5',
-        content: 'Tab 1 content',
+        path: "/admin/blog/setting"
     }
 ])
 
-const addTab = (targetName) => {
-    const newTabName = `${++tabIndex}`
-    editableTabs.value.push({
-        title: 'New Tab',
-        name: newTabName,
-        content: 'New Tab content',
-    })
-    editableTabsValue.value = newTabName
-}
 const removeTab = (targetName) => {
-    const tabs = editableTabs.value
-    let activeName = editableTabsValue.value
-    if (activeName === targetName) {
-        tabs.forEach((tab, index) => {
-            if (tab.name === targetName) {
-                const nextTab = tabs[index + 1] || tabs[index - 1]
-                if (nextTab) {
-                    activeName = nextTab.name
-                }
-            }
-        })
-    }
 
-    editableTabsValue.value = activeName
-    editableTabs.value = tabs.filter((tab) => tab.name !== targetName)
 }
+// 添加 Tab 标签页
+function addTab(tab) {
+    // 标签是否不存在
+    let isTabNotExisted = tabList.value.findIndex(item => item.path == tab.path) == -1
+    // 如果不存在
+    if (isTabNotExisted) {
+        // 添加标签
+        tabList.value.push(tab)
+    }
+}
+// 在路由切换前被调用
+onBeforeRouteUpdate((to, from) => {
+    // 设置被激活的 Tab 标签
+    activeTab.value = to.path
+    // 添加 Tab 标签页
+    addTab({
+        title: to.meta.title,
+        path: to.path
+    })
+})
 </script>
 
 <style>
