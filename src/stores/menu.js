@@ -1,12 +1,5 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-// 引入全局状态管理 Pinia
-import { createPinia } from 'pinia'
-
-const pinia = createPinia()
-
-// 应用 Pinia
-app.use(pinia)
 export const useMenuStore = defineStore('menu', () => {
   // 左边栏菜单默认宽度
   const menuWidth = ref("250px")
