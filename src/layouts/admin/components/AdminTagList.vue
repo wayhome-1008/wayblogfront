@@ -10,7 +10,7 @@
         </el-tabs>
         <!-- 右侧下拉菜单 -->
         <span class="ml-auto flex items-center justify-center h-[32px] w-[32px]">
-            <el-dropdown>
+            <el-dropdown @command="handleCloseTab">
                 <span class="el-dropdown-link">
                     <el-icon>
                         <arrow-down />
@@ -18,8 +18,8 @@
                 </span>
                 <template #dropdown>
                     <el-dropdown-menu>
-                        <el-dropdown-item>关闭其他</el-dropdown-item>
-                        <el-dropdown-item>关闭全部</el-dropdown-item>
+                        <el-dropdown-item command="closeOthers">关闭其他</el-dropdown-item>
+                        <el-dropdown-item command="closeAll">关闭全部</el-dropdown-item>
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>
@@ -28,7 +28,7 @@
     </div>
     <div class="h-[44px]"></div>
 </template>
-
+<!-- 
 <script setup>
 import { ref } from 'vue'
 import { useMenuStore } from '@/stores/menu'
@@ -36,13 +36,6 @@ import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router'
 import { setTabList, getTabList } from '@/composables/tag-list'
 const route = useRoute()
 const router = useRouter()
-// 标签页切换事件
-const tabChange = (path) => {
-    // 设置被激活的 Tab 标签
-    activeTab.value = path
-    // 路由跳转
-    router.push(path)
-}
 // 当前被选中的 tab
 const activeTab = ref(route.path)
 const menuStore = useMenuStore()
@@ -51,25 +44,35 @@ const tabList = ref([
         title: '仪表盘',
         path: "/admin/index"
     }
-    // ,
-    // {
-    //     title: '文章管理',
-    //     path: "/admin/article/list"
-    // },
-    // {
-    //     title: '分类管理',
-    //     path: "/admin/category/list"
-    // },
-    // {
-    //     title: '标签管理',
-    //     path: "/admin/tag/list"
-    // },
-    // {
-    //     title: '博客设置',
-    //     path: "/admin/blog/setting"
-    // }
 ])
+// 标签页切换事件
+const tabChange = (path) => {
+    // 设置被激活的 Tab 标签
+    activeTab.value = path
+    // 路由跳转
+    router.push(path)
+}
 
+// 处理关闭标签菜单事件
+const handleCloseTab = (command) => {
+    // 首页路由
+    let indexPath = '/admin/index'
+    // 处理关闭其他
+    if (command == 'closeOthers') {
+        // 仅过滤出首页和当前页
+        tabList.value = tabList.value.filter((tab) => tab.path == indexPath || tab.path == activeTab.value)
+    } else if (command == 'closeAll') { // 处理关闭全部
+        // 切换回首页
+        activeTab.value = indexPath
+        // 只保留首页
+        tabList.value = tabList.value.filter((tab) => tab.path == indexPath)
+        // 切换标签页
+        tabChange(activeTab.value)
+    }
+
+    // 设置到 cookie 中
+    setTabList(tabList.value)
+}
 // 删除 Tab 标签
 const removeTab = (path) => {
     let tabs = tabList.value
@@ -99,8 +102,8 @@ const removeTab = (path) => {
 
     // 存储到 cookie 中
     setTabList(tabList.value)
-	
-	// 切换标签页
+
+    // 切换标签页
     tabChange(activeTab.value)
 }
 // 添加 Tab 标签页
@@ -135,6 +138,11 @@ onBeforeRouteUpdate((to, from) => {
         path: to.path
     })
 })
+</script> -->
+<script setup>
+import { useTabList } from '@/composables/useTagList.js'
+
+const { menuStore, activeTab, tabList, tabChange, removeTab, handleCloseTab } = useTabList()
 </script>
 
 <style>
