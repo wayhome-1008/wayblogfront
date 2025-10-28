@@ -33,11 +33,12 @@
 import { ref } from 'vue'
 import { useMenuStore } from '@/stores/menu'
 import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router'
+import { setTabList, getTabList } from '@/composables/tag-list'
 const route = useRoute()
 const router = useRouter()
 // 标签页切换事件
 const tabChange = (path) => {
-     // 设置被激活的 Tab 标签
+    // 设置被激活的 Tab 标签
     activeTab.value = path
     // 路由跳转
     router.push(path)
@@ -49,23 +50,24 @@ const tabList = ref([
     {
         title: '仪表盘',
         path: "/admin/index"
-    },
-    {
-        title: '文章管理',
-        path: "/admin/article/list"
-    },
-    {
-        title: '分类管理',
-        path: "/admin/category/list"
-    },
-    {
-        title: '标签管理',
-        path: "/admin/tag/list"
-    },
-    {
-        title: '博客设置',
-        path: "/admin/blog/setting"
     }
+    // ,
+    // {
+    //     title: '文章管理',
+    //     path: "/admin/article/list"
+    // },
+    // {
+    //     title: '分类管理',
+    //     path: "/admin/category/list"
+    // },
+    // {
+    //     title: '标签管理',
+    //     path: "/admin/tag/list"
+    // },
+    // {
+    //     title: '博客设置',
+    //     path: "/admin/blog/setting"
+    // }
 ])
 
 const removeTab = (targetName) => {
@@ -80,7 +82,19 @@ function addTab(tab) {
         // 添加标签
         tabList.value.push(tab)
     }
+    // 存储 tabList 到 cookie 中
+    setTabList(tabList.value)
 }
+function initTabList() {
+    // 从 cookie 中获取缓存起来的标签导航栏数据
+    let tabs = getTabList()
+    // 若不为空，则赋值
+    if (tabs) {
+        tabList.value = tabs
+    }
+}
+// 初始化标签导航栏
+initTabList()
 // 在路由切换前被调用
 onBeforeRouteUpdate((to, from) => {
     // 设置被激活的 Tab 标签
