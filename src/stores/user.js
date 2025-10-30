@@ -8,7 +8,7 @@ export const useUserStore = defineStore('user', () => {
 
   // 设置用户信息
   function setUserInfo() {
-    // 调用后端获取用户信息接口
+    // 调用后头获取用户信息接口
     getUserInfo().then(res => {
       if (res.success == true) {
         userInfo.value = res.data
@@ -17,4 +17,9 @@ export const useUserStore = defineStore('user', () => {
   }
 
   return { userInfo, setUserInfo }
-})
+}, 
+{
+  // 开启持久化
+  persist: true,
+}
+)
