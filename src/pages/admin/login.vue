@@ -58,6 +58,7 @@ import { ref, reactive, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router';
 import { showMessage } from '@/composables/util'
 import { setToken } from '@/composables/cookie'
+import { useUserStore } from '@/stores/user'
 // 按回车键后，执行登录事件
 function onKeyUp(e) {
     console.log(e)
@@ -103,6 +104,8 @@ const rules = {
     ]
 }
 const router = useRouter()
+
+const userStore = useUserStore()
 // 登录
 const onSubmit = () => {
     console.log('登录')
@@ -125,6 +128,8 @@ const onSubmit = () => {
                 // 存储 Token 到 Cookie 中
                 let token = res.data.token
                 setToken(token)
+                // 获取用户信息，并存储到全局状态中
+                userStore.setUserInfo()
                 // 跳转到后台首页
                 router.push('/admin/index')
             } else {
