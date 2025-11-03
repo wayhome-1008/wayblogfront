@@ -27,8 +27,8 @@ const routes = [
     {
         path: "/admin", // 后台首页
         component: Admin,// 对应 admin.vue 布局文件
-          // 使用到 admin.vue 布局的，都需要放置在其子路由下面
- children: [
+        // 使用到 admin.vue 布局的，都需要放置在其子路由下面
+        children: [
             {
                 path: "/admin/index",
                 component: AdminIndex,
@@ -73,7 +73,7 @@ const router = createRouter({
     // 指定路由的历史管理方式，hash 模式指的是 URL 的路径是通过 hash 符号（#）进行标识
     history: createWebHashHistory(),
     // routes: routes 的缩写
-    routes, 
+    routes,
 })
 
 // 暴露出去

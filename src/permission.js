@@ -8,11 +8,12 @@ router.beforeEach((to, from, next) => {
 
     // 展示页面加载 Loading
     showPageLoading()
-    
+
     let token = getToken()
 
-    if (!token && to.path.startsWith('/admin')) { 
-        // 省略...
+    if (!token && to.path.startsWith('/admin')) {
+        // 跳转登录页
+        next({ path: '/login' })
     } else if (token && to.path == '/login') {
         // 若用户已经登录，且重复访问登录页
         showMessage('请勿重复登录', 'warning')
@@ -28,6 +29,6 @@ router.afterEach((to, from) => {
     // 动态设置页面 Title
     let title = (to.meta.title ? to.meta.title : '') + ' - Weblog'
     document.title = title
-     // 隐藏页面加载 Loading
+    // 隐藏页面加载 Loading
     hidePageLoading()
 })
