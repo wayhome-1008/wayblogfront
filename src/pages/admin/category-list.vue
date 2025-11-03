@@ -22,7 +22,7 @@
         <el-card shadow="never">
             <!-- 新增按钮 -->
             <div class="mb-5">
-                <el-button type="primary" @click="dialogVisible = true">
+                <el-button type="primary" @click="addCategoryBtnClick">
                     <el-icon class="mr-1">
                         <Plus />
                     </el-icon>
@@ -36,11 +36,11 @@
                 <el-table-column label="操作">
                     <template #default="scope">
                         <el-button type="danger" size="small" @click="deleteCategorySubmit(scope.row)">
-                        <el-icon class="mr-1">
-                            <Delete />
-                        </el-icon>
-                        删除
-                    </el-button>
+                            <el-icon class="mr-1">
+                                <Delete />
+                            </el-icon>
+                            删除
+                        </el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -53,11 +53,11 @@
                 @size-change="handleSizeChange" @current-change="getTableData" />
         </div>
         <!-- 添加分类 -->
-        <el-dialog v-model="dialogVisible" title="添加文章分类" width="40%" :draggable="true" :close-on-click-modal="false"
+        <!-- <el-dialog v-model="dialogVisible" title="添加文章分类" width="40%" :draggable="true" :close-on-click-modal="false"
             :close-on-press-escape="false">
             <el-form ref="formRef" :rules="rules" :model="form">
                 <el-form-item label="分类名称" prop="name" label-width="80px">
-                    <!-- 输入框组件 -->
+                    
                     <el-input size="large" v-model="form.name" placeholder="请输入分类名称" maxlength="20" show-word-limit
                         clearable />
                 </el-form-item>
@@ -70,11 +70,21 @@
                     </el-button>
                 </span>
             </template>
-        </el-dialog>
+        </el-dialog> -->
+        <!-- 将原有的对话框代码注释掉，引入组件 -->
+        <!-- 添加分类 -->
+        <FormDialog ref="formDialogRef" title="添加文章分类" destroyOnClose @submit="onSubmit">
+            <el-form ref="formRef" :rules="rules" :model="form">
+                <el-form-item label="分类名称" prop="name" label-width="80px" size="large">
+                    <el-input v-model="form.name" placeholder="请输入分类名称" maxlength="20" show-word-limit clearable />
+                </el-form-item>
+            </el-form>
+        </FormDialog>
     </div>
 </template>
 
 <script setup>
+import FormDialog from '@/components/FormDialog.vue'
 // 引入所需图标
 import { Search, RefreshRight } from '@element-plus/icons-vue'
 import { ref, reactive } from 'vue'
@@ -82,7 +92,12 @@ import { getCategoryPageList, addCategory, deleteCategory } from '@/api/admin/ca
 import moment from 'moment'
 import { showMessage, showModel } from '@/composables/util'
 // 对话框是否显示
-const dialogVisible = ref(false)
+// const dialogVisible = ref(false)
+const formDialogRef = ref(null)
+// 新增分类按钮点击事件
+const addCategoryBtnClick = () => {
+    formDialogRef.value.open()
+}
 // 表单引用
 const formRef = ref(null)
 
@@ -118,7 +133,7 @@ const onSubmit = () => {
                 // 将表单中分类名称置空
                 form.name = ''
                 // 隐藏对话框
-                dialogVisible.value = false
+                formDialogRef.value.close()
                 // 重新请求分页接口，渲染数据
                 getTableData()
             } else {
