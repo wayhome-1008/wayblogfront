@@ -180,7 +180,8 @@ const onSubmit = () => {
             showMessage('两次密码输入不一致，请检查！', 'warning')
             return
         }
-
+        // 显示提交按钮 loading
+        formDialogRef.value.showBtnLoading()
         // 调用修改用户密码接口
         updateAdminPassword(form).then((res) => {
             console.log(res)
@@ -198,7 +199,7 @@ const onSubmit = () => {
                 // 提示消息
                 showMessage(message, 'error')
             }
-        })
+        }).finally(() => formDialogRef.value.closeBtnLoading()) // 隐藏提交按钮 loading
     })
 }
 
