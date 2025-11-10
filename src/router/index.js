@@ -7,21 +7,36 @@ import AdminCategoryList from '@/pages/admin/category-list.vue'
 import AdminTagList from '@/pages/admin/tag-list.vue'
 import AdminBlogSetting from '@/pages/admin/blog-setting.vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
-
+import ArchiveList from '@/pages/frontend/archive-list.vue'
+import CategoryArticleList from '@/pages/frontend/category-article-list.vue'
 // 统一在这里声明所有路由
 const routes = [
     {
         path: '/', // 路由地址，首页
         component: Index, // 对应组件
         meta: { // meta 信息
-            title: 'Waylog 首页' // 页面标题
+            title: 'WayBlog 首页' // 页面标题
         }
     },
     {
         path: '/login', // 登录页
         component: Login,
         meta: {
-            title: 'Waylog 登录页'
+            title: 'WayBlog 登录页'
+        }
+    },
+    {
+        path: '/archive/list', // 归档页
+        component: ArchiveList,
+        meta: { // meta 信息
+            title: 'WayBlog 归档页'
+        }
+    },
+    {
+        path: '/category/article/list', // 分类文章页
+        component: CategoryArticleList,
+        meta: { // meta 信息
+            title: 'WayBlog 分类文章页'
         }
     },
     {
