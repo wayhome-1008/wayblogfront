@@ -19,7 +19,7 @@
                             <div class="p-5">
                                 <!-- 标签 -->
                                 <div class="mb-3">
-                                    <span v-for="(tag, tagIndex) in article.tags" :key="tagIndex"
+                                    <span @click="goTagArticleListPage(tag.id, tag.name)" v-for="(tag, tagIndex) in article.tags" :key="tagIndex"
                                         class="cursor-pointer bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded hover:bg-green-200 hover:text-green-900 dark:bg-green-900 dark:text-green-300">
                                         {{ tag.name }}
                                     </span>
@@ -130,7 +130,6 @@ import UserInfoCard from '@/layouts/frontend/components/UserInfoCard.vue'
 import CategoryListCard from '@/layouts/frontend/components/CategoryListCard.vue'
 import TagListCard from '@/layouts/frontend/components/TagListCard.vue'
 import { useRouter } from 'vue-router'
-
 const router = useRouter()
 
 // 跳转分类文章列表页
@@ -171,5 +170,9 @@ function getArticles(currentNo) {
 }
 getArticles(current.value)
 
-
+// 跳转标签文章列表页
+const goTagArticleListPage = (id, name) => {
+    // 跳转时通过 query 携带参数（标签 ID、标签名称）
+    router.push({ path: '/tag/article/list', query: { id, name } })
+}
 </script>
