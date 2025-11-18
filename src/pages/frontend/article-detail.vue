@@ -43,7 +43,8 @@
                             <!-- 发布时间 -->
                             <svg class="inline w-3 h-3 mr-2 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2"
                                     d="M5 1v3m5-3v3m5-3v3M1 7h18M5 11h10M2 3h16a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" />
                             </svg>
                             <span class="mr-1 hidden md:inline">发表于</span> {{ article.createTime }}
@@ -51,7 +52,8 @@
                             <!-- 分类 -->
                             <svg class="inline w-3 h-3 ml-5 mr-2 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2"
                                     d="M1 5v11a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H1Zm0 0V2a1 1 0 0 1 1-1h5.443a1 1 0 0 1 .8.4l2.7 3.6H1Z" />
                             </svg>
                             <span class="hidden md:inline">分类于</span>
@@ -61,7 +63,8 @@
                             <!-- 阅读量 -->
                             <svg class="inline w-3 h-3 ml-5 mr-2 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 14">
-                                <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                                <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2">
                                     <path d="M10 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
                                     <path d="M10 13c4.97 0 9-2.686 9-6s-4.03-6-9-6-9 2.686-9 6 4.03 6 9 6Z" />
                                 </g>
@@ -70,7 +73,8 @@
                         </div>
 
                         <!-- 正文 -->
-                        <div ref="articleContentRef" class="mt-5 article-content" v-viewer v-html="article.content"></div>
+                        <div ref="articleContentRef" class="mt-5 article-content" v-viewer v-html="article.content">
+                        </div>
 
                         <!-- 标签集合 -->
                         <div v-if="article.tags && article.tags.length > 0" class="mt-5">
@@ -141,7 +145,8 @@
         </div>
 
     </main>
-
+    <!-- 返回顶部 -->
+    <ScrollToTopButton></ScrollToTopButton>
     <Footer></Footer>
 </template>
 
@@ -156,7 +161,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { ref, watch, onMounted } from 'vue'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/tokyo-night-dark.css'
-
+import ScrollToTopButton from '@/layouts/frontend/components/ScrollToTopButton.vue'
 const route = useRoute()
 const router = useRouter()
 // 路由传递过来的文章 ID

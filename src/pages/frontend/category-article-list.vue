@@ -289,7 +289,8 @@
         </div>
 
     </main>
-
+    <!-- 返回顶部 -->
+    <ScrollToTopButton></ScrollToTopButton>
     <Footer></Footer>
 </template>
 
@@ -302,7 +303,7 @@ import CategoryListCard from '@/layouts/frontend/components/CategoryListCard.vue
 import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getCategoryArticlePageList } from '@/api/frontend/category'
-
+import ScrollToTopButton from '@/layouts/frontend/components/ScrollToTopButton.vue'
 const route = useRoute()
 const router = useRouter()
 

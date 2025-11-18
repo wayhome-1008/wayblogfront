@@ -93,7 +93,8 @@
         </div>
 
     </main>
-
+    <!-- 返回顶部 -->
+    <ScrollToTopButton></ScrollToTopButton>
     <Footer></Footer>
 </template>
 
@@ -105,7 +106,7 @@ import TagListCard from '@/layouts/frontend/components/TagListCard.vue'
 import CategoryListCard from '@/layouts/frontend/components/CategoryListCard.vue'
 import { getArchivePageList } from '@/api/frontend/archive'
 import { ref } from 'vue'
-
+import ScrollToTopButton from '@/layouts/frontend/components/ScrollToTopButton.vue'
 // 文章归档
 const archives = ref([])
 // 当前页码

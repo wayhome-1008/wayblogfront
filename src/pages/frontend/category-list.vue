@@ -22,7 +22,8 @@
         </div>
 
     </main>
-
+    <!-- 返回顶部 -->
+    <ScrollToTopButton></ScrollToTopButton>
     <Footer></Footer>
 </template>
 
@@ -32,4 +33,5 @@ import Footer from '@/layouts/frontend/components/Footer.vue'
 import UserInfoCard from '@/layouts/frontend/components/UserInfoCard.vue'
 import TagListCard from '@/layouts/frontend/components/TagListCard.vue'
 import CategoryListCard from '@/layouts/frontend/components/CategoryListCard.vue'
+import ScrollToTopButton from '@/layouts/frontend/components/ScrollToTopButton.vue'
 </script>

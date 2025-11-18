@@ -30,7 +30,8 @@
         </div>
 
     </main>
-
+    <!-- 返回顶部 -->
+    <ScrollToTopButton></ScrollToTopButton>
     <Footer></Footer>
 </template>
 
@@ -41,7 +42,7 @@ import UserInfoCard from '@/layouts/frontend/components/UserInfoCard.vue'
 import CategoryListCard from '@/layouts/frontend/components/CategoryListCard.vue'
 import { getTagList } from '@/api/frontend/tag'
 import { ref } from 'vue'
-
+import ScrollToTopButton from '@/layouts/frontend/components/ScrollToTopButton.vue'
 // 所有标签
 const tags = ref([])
 getTagList().then((res) => {
