@@ -131,7 +131,7 @@
 
             <!-- 右边侧边栏，占用一列 -->
             <aside class="col-span-4 md:col-span-1">
-                <div class="sticky top-[5.5rem]">
+                <div>
                     <!-- 博主信息 -->
                     <UserInfoCard></UserInfoCard>
 
@@ -141,6 +141,8 @@
                     <!-- 标签 -->
                     <TagListCard></TagListCard>
                 </div>
+                <!-- 文章目录 -->
+                <Toc></Toc>
             </aside>
         </div>
 
@@ -162,6 +164,7 @@ import { ref, watch, onMounted } from 'vue'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/tokyo-night-dark.css'
 import ScrollToTopButton from '@/layouts/frontend/components/ScrollToTopButton.vue'
+import Toc from '@/layouts/frontend/components/Toc.vue'
 const route = useRoute()
 const router = useRouter()
 // 路由传递过来的文章 ID
@@ -175,8 +178,8 @@ function refreshArticleDetail(articleId) {
     getArticleDetail(route.params.articleId).then((res) => {
         // 该文章不存在(错误码为 20010)
         if (!res.success && res.errorCode == '20010') {
-        	// 手动跳转 404 页面
-            router.push({name : 'NotFound'})
+            // 手动跳转 404 页面
+            router.push({ name: 'NotFound' })
             return
         }
 
