@@ -19,6 +19,7 @@
     "axios": "^1.12.2",
     "element-plus": "^2.3.9",
     "flowbite": "^1.8.1",
+    "gsap": "^3.13.0",
     "highlight.js": "^11.11.1",
     "md-editor-v3": "^6.1.1",
     "moment": "^2.30.1",
