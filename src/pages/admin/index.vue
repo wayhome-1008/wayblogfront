@@ -63,7 +63,7 @@
                     </svg>
                     <div class="ml-5">
                         <h2 class="mb-1">分类</h2>
-                         <CountTo :value="categoryTotalCount"></CountTo>
+                        <CountTo :value="categoryTotalCount"></CountTo>
                     </div>
                 </div>
             </div>
@@ -177,7 +177,7 @@
                         每日文章发布热点图
                     </h2>
                     <div>
-                        内容
+                        <ArticlePublishCalendar :value="articlePublishInfo"></ArticlePublishCalendar>
                     </div>
                 </div>
             </div>
@@ -213,8 +213,9 @@
 </template>
 <script setup>
 import { ref } from 'vue'
-import { getBaseStatisticsInfo } from '@/api/admin/dashboard'
+import { getBaseStatisticsInfo, getPublishArticleStatisticsInfo } from '@/api/admin/dashboard'
 import CountTo from '@/components/CountTo.vue'
+import ArticlePublishCalendar from '@/components/ArticlePublishCalendar.vue'
 // 文章总数，默认值为 0
 const articleTotalCount = ref(0)
 // 分类总数
@@ -223,7 +224,13 @@ const categoryTotalCount = ref(0)
 const tagTotalCount = ref(0)
 // PV 总访问量
 const pvTotalCount = ref(0)
-
+// 按日统计文章发布数据
+const articlePublishInfo = ref({})
+getPublishArticleStatisticsInfo().then((res) => {
+    if (res.success) {
+        articlePublishInfo.value = res.data
+    }
+})
 getBaseStatisticsInfo().then(res => {
     if (res.success) {
         articleTotalCount.value = res.data.articleTotalCount
