@@ -22,7 +22,7 @@
                     </svg>
                     <div class="ml-5">
                         <h2 class="mb-1">文章</h2>
-                        <div class="font-bold text-2xl">1234</div>
+                        <div class="font-bold text-2xl">{{ articleTotalCount }}</div>
                     </div>
                 </div>
             </div>
@@ -63,7 +63,7 @@
                     </svg>
                     <div class="ml-5">
                         <h2 class="mb-1">分类</h2>
-                        <div class="font-bold text-2xl">1234</div>
+                        <div class="font-bold text-2xl">{{ categoryTotalCount }}</div>
                     </div>
                 </div>
             </div>
@@ -100,7 +100,7 @@
                     </svg>
                     <div class="ml-5">
                         <h2 class="mb-1">标签</h2>
-                        <div class="font-bold text-2xl">1234</div>
+                        <div class="font-bold text-2xl">{{ tagTotalCount }}</div>
                     </div>
                 </div>
             </div>
@@ -146,7 +146,7 @@
                     </svg>
                     <div class="ml-5">
                         <h2 class="mb-1">总浏览量</h2>
-                        <div class="font-bold text-2xl">1234</div>
+                        <div class="font-bold text-2xl">{{ pvTotalCount }}</div>
                     </div>
                 </div>
             </div>
@@ -211,3 +211,25 @@
 
     </main>
 </template>
+<script setup>
+import { ref } from 'vue'
+import { getBaseStatisticsInfo } from '@/api/admin/dashboard'
+
+// 文章总数，默认值为 0
+const articleTotalCount = ref(0)
+// 分类总数
+const categoryTotalCount = ref(0)
+// 标签总数
+const tagTotalCount = ref(0)
+// PV 总访问量
+const pvTotalCount = ref(0)
+
+getBaseStatisticsInfo().then(res => {
+    if (res.success) {
+        articleTotalCount.value = res.data.articleTotalCount
+        categoryTotalCount.value = res.data.categoryTotalCount
+        tagTotalCount.value = res.data.tagTotalCount
+        pvTotalCount.value = res.data.pvTotalCount
+    }
+})
+</script>
