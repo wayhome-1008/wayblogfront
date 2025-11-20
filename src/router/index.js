@@ -13,6 +13,7 @@ import TagList from '@/pages/frontend/tag-list.vue'
 import TagArticleList from '@/pages/frontend/tag-article-list.vue'
 import ArticleDetail from '@/pages/frontend/article-detail.vue'
 import NotFound from '@/pages/frontend/404.vue'
+import CategoryList from '@/pages/frontend/category-list.vue'
 // 统一在这里声明所有路由
 const routes = [
     {
@@ -34,6 +35,13 @@ const routes = [
         component: ArchiveList,
         meta: { // meta 信息
             title: 'WayBlog 归档页'
+        }
+    },
+    {
+        path: '/category/list', // 分类列表页
+        component: CategoryList,
+        meta: { // meta 信息
+            title: 'WayBlog 分类列表页'
         }
     },
     {

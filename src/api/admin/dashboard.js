@@ -8,3 +8,7 @@ export function getBaseStatisticsInfo() {
 export function getPublishArticleStatisticsInfo() {
     return axios.post("/admin/dashboard/publishArticle/statistics")
 }
+// 获取仪表盘最近一周 PV 访问量信息
+export function getArticlePVStatisticsInfo() {
+    return axios.post("/admin/dashboard/pv/statistics")
+}

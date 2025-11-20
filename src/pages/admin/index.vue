@@ -200,10 +200,8 @@
                                 fill="#ABAFD1" p-id="58228"></path>
                         </svg>
                         近一周 PV 访问量
+                        <ArticlePVLineChat :value="articlePVInfo"></ArticlePVLineChat>
                     </h2>
-                    <div>
-                        内容
-                    </div>
                 </div>
             </div>
 
@@ -213,9 +211,10 @@
 </template>
 <script setup>
 import { ref } from 'vue'
-import { getBaseStatisticsInfo, getPublishArticleStatisticsInfo } from '@/api/admin/dashboard'
+import { getBaseStatisticsInfo, getPublishArticleStatisticsInfo, getArticlePVStatisticsInfo } from '@/api/admin/dashboard'
 import CountTo from '@/components/CountTo.vue'
 import ArticlePublishCalendar from '@/components/ArticlePublishCalendar.vue'
+import ArticlePVLineChat from '@/components/ArticlePVLineChat.vue'
 // 文章总数，默认值为 0
 const articleTotalCount = ref(0)
 // 分类总数
@@ -229,6 +228,13 @@ const articlePublishInfo = ref({})
 getPublishArticleStatisticsInfo().then((res) => {
     if (res.success) {
         articlePublishInfo.value = res.data
+    }
+})
+// 近一周文章 PV 数据
+const articlePVInfo = ref({})
+getArticlePVStatisticsInfo().then((res) => {
+    if (res.success) {
+        articlePVInfo.value = res.data
     }
 })
 getBaseStatisticsInfo().then(res => {
